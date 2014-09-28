@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+exec /usr/sbin/squid3 -NYC -d 1 -f /etc/squid3/squid.conf
