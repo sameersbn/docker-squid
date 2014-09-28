@@ -1,4 +1,9 @@
 #!/bin/bash
 set -e
 
+CACHE_MAX_MEM=${CACHE_MAX_MEM:-256}
+
+# apply squid config
+sed 's/{{CACHE_MAX_MEM}}/'"${CACHE_MAX_MEM}"'/' -i /etc/squid3/squid.conf
+
 exec /usr/sbin/squid3 -NYC -d 1 -f /etc/squid3/squid.conf
