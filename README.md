@@ -4,7 +4,7 @@
 - [Reporting Issues](#reporting-issues)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
-- [Basic Configuration Parameters](#basic-configuration-parameters)
+- [Configuration](#configuration)
 - [Shell Access](#shell-access)
 - [Upgrading](#upgrading)
 
