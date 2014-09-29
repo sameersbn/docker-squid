@@ -79,11 +79,11 @@ For basic installations I have added a couple of configuration options which sho
 
 *Please refer the docker run command options for the `--env-file` flag where you can specify all required environment variables in a single file. This will save you from writing a potentially long docker run command. Alternately you can specify these configurations using the `-e` docker run flag*
 
-**CACHE_MAX_SIZE**: Maximum amount of storage (MB) to use for the cache store. Defaults to `100` MB
-**CACHE_MAX_OBJECT_SIZE**: Maximum size of an object (MB) in the cache. Defaults to `4` MB
-**CACHE_MAX_MEM**: Maximum amount of system memory squid is allowed to use to cached objects in the RAM
-**OVERALL_SPEED_KBPS**: The speed limit (Kbps) for the aggregate bucket. Defaults to `-1` (unlimited)
-**INDIVIDUAL_SPEED_KBPS**: The speed limit (Kbps) for the individual bucket. Defaults to `-1` (unlimited)
+- **CACHE_MAX_SIZE**: Maximum amount of storage (MB) to use for the cache store. Defaults to `100` MB
+- **CACHE_MAX_OBJECT_SIZE**: Maximum size of an object (MB) in the cache. Defaults to `4` MB
+- **CACHE_MAX_MEM**: Maximum amount of system memory squid is allowed to use to cached objects in the RAM
+- **OVERALL_SPEED_KBPS**: The speed limit (Kbps) for the aggregate bucket. Defaults to `-1` (unlimited)
+- **INDIVIDUAL_SPEED_KBPS**: The speed limit (Kbps) for the individual bucket. Defaults to `-1` (unlimited)
 
 # Shell Access
 
