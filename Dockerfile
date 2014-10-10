@@ -3,6 +3,7 @@ MAINTAINER sameer@damagehead.com
 
 RUN apt-get update \
  && apt-get install -y squid3 \
+ && mv /etc/squid3/squid.conf /etc/squid3/squid.conf.dist \
  && rm -rf /var/lib/apt/lists/* # 20140928
 
 ADD squid.conf /etc/squid3/conf/squid.conf
