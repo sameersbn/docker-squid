@@ -73,7 +73,7 @@ Additionally you can mount a volume at the `/var/spool/squid3` path to have a pe
 
 Squid is a full featured caching proxy server and has hundreds of configuration parameters.
 
-The proper way to configure squid to your liking is by editing the `squid.conf` file and volume mounting the updated configuration at the `/etc/squid3/squid.conf` path in the container specifying the `-v /path/on/host/to/squid.conf:/etc/squid3/squid.conf` flag in the docker run command. You can use the `squid.conf` from the repository to base your configurations on.
+The proper way to configure squid to your liking is by editing the `squid.conf` file and volume mounting the directory containing the edited `squid.conf` to the `/etc/squid3/conf/` path in the container by specifying the `-v /path/on/host/to/squid/config/dir/:/etc/squid3/conf/` flag in the docker run command. You can use the `squid.conf` from the repository as a template to base your configurations.
 
 For basic installations I have added a couple of configuration options which should help serve simple usage scenarios.
 
