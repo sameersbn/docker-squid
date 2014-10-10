@@ -16,8 +16,8 @@ if [ ${INDIVIDUAL_SPEED_KBPS} -gt 0 ]; then
 fi
 
 # import user config if it exists
-if [ -f /etc/squid3/conf/squid.conf ]; then
-  cp /etc/squid3/conf/squid.conf /etc/squid3/squid.conf
+if [ -f /etc/squid3/squid.user.conf ]; then
+  cp /etc/squid3/squid.user.conf /etc/squid3/squid.conf
 fi
 
 # apply squid config
