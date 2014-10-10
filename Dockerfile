@@ -6,7 +6,7 @@ RUN apt-get update \
  && mv /etc/squid3/squid.conf /etc/squid3/squid.conf.dist \
  && rm -rf /var/lib/apt/lists/* # 20140928
 
-ADD squid.conf /etc/squid3/conf/squid.conf
+ADD squid.conf /etc/squid3/squid.conf
 
 ADD start /start
 RUN chmod 755 /start
