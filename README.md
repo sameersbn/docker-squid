@@ -1,6 +1,7 @@
 # Table of Contents
 
 - [Introduction](#introduction)
+- [Contributing](#contributing)
 - [Reporting Issues](#reporting-issues)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
@@ -11,6 +12,14 @@
 # Introduction
 
 Dockerfile to build a squid image.
+
+# Contributing
+
+If you find this image useful here's how you can help:
+
+- Send a Pull Request with your awesome new features and bug fixes
+- Help new users with [Issues](https://github.com/sameersbn/docker-squid/issues) they may encounter
+- Send me a tip on [Gittip](https://gittip.com/sameersbn/) or using Bitcoin at **16rDxVqJPyYAFYPLduTaSiwe7ZiY1hHqKM**
 
 # Reporting Issues
 
