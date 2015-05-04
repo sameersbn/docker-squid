@@ -1,0 +1,15 @@
+machine:
+  services:
+    - docker
+dependencies:
+  cache_directories:
+    - "~/docker-squid"
+  override:
+    - docker info
+    - if [[ -e ~/docker-squid/image.tar ]]; then docker load --input ~/docker-squid/image.tar; fi
+    - docker build -t sameersbn/squid .
+    - mkdir -p ~/docker-squid; docker save --output ~/docker-squid/image.tar sameersbn/squid
+test:
+  override:
+    - docker run -d -p 172.17.42.1:3128:3128 sameersbn/squid; sleep 10
+    - nc -z 172.17.42.1 3128
