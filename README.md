@@ -1,3 +1,5 @@
+[![Circle CI](https://circleci.com/gh/sameersbn/docker-squid.svg?style=svg)](https://circleci.com/gh/sameersbn/docker-squid)
+
 # Table of Contents
 
 - [Introduction](#introduction)
