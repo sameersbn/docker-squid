@@ -12,4 +12,4 @@ dependencies:
 test:
   override:
     - docker run -d -p 23128:3128 sameersbn/squid; sleep 10
-    - nc -z 127.0.0.1 23128
+    - curl --retry 10 --retry-delay 5 -v -s -L -x http://127.0.0.1:23128 -o /dev/null https://www.google.com
