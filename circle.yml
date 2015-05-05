@@ -11,5 +11,5 @@ dependencies:
     - mkdir -p ~/docker-squid; docker save --output ~/docker-squid/image.tar sameersbn/squid
 test:
   override:
-    - docker run -d -p 172.17.42.1:3128:3128 sameersbn/squid; sleep 10
-    - nc -z 172.17.42.1 3128
+    - docker run -d -p 23128:3128 sameersbn/squid; sleep 10
+    - nc -z 127.0.0.1 23128
