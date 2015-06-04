@@ -1,10 +1,10 @@
-FROM sameersbn/ubuntu:14.04.20150603
+FROM sameersbn/ubuntu:14.04.20150604
 MAINTAINER sameer@damagehead.com
 
 RUN apt-get update \
  && apt-get install -y squid3 \
  && mv /etc/squid3/squid.conf /etc/squid3/squid.conf.dist \
- && rm -rf /var/lib/apt/lists/* # 20150603
+ && rm -rf /var/lib/apt/lists/* # 20150604
 
 ADD squid.conf /etc/squid3/squid.conf
 
