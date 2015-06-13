@@ -1,4 +1,4 @@
-FROM sameersbn/ubuntu:14.04.20150604
+FROM sameersbn/ubuntu:14.04.20150613
 MAINTAINER sameer@damagehead.com
 
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 80F70E11F0F0D5F10CB20E62F5DA5F09C3173AA6 \
@@ -6,7 +6,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 80F70E11F0F0D5F
  && apt-get update \
  && apt-get install -y squid3-ssl \
  && mv /etc/squid3/squid.conf /etc/squid3/squid.conf.dist \
- && rm -rf /var/lib/apt/lists/* # 20150604
+ && rm -rf /var/lib/apt/lists/* # 20150613
 
 ADD squid.conf /etc/squid3/squid.conf
 
