@@ -1,0 +1,6 @@
+Squid:
+  image: sameersbn/squid:latest
+  ports:
+    - "3128:3128"
+  volumes:
+    - /srv/docker/squid/cache:/var/spool/squid3
