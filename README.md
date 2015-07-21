@@ -73,13 +73,13 @@ docker run --name squid -d --restart=always \
 
 *Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
 
-> **Note**: Any arguments specified on the `docker run` command are passed on the `squid3` command.
+> Any arguments specified on the `docker run` command are passed on the `redis-server` command.
 
 ## Persistence
 
 For the cache to preserve its state across container shutdown and startup you should mount a volume at `/var/spool/squid3`.
 
-> **Note**: *The [Quickstart](#quickstart) command already mounts a volume for persistence.*
+> *The [Quickstart](#quickstart) command already mounts a volume for persistence.*
 
 SELinux users should update the security context of the host mountpoint so that it plays nicely with Docker:
 
