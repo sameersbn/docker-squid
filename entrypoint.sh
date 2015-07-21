@@ -16,11 +16,6 @@ chown -R ${SQUID_USER}:${SQUID_USER} ${SQUID_LOG_DIR}
 mkdir -p ${SQUID_CACHE_DIR}
 chown -R ${SQUID_USER}:${SQUID_USER} ${SQUID_CACHE_DIR}
 
-# initialize the cache_dir
-if [[ ! -d ${SQUID_CACHE_DIR}/00 ]]; then
-  /usr/sbin/squid3 -N -f /etc/squid3/squid.conf -z
-fi
-
 # allow arguments to be passed to squid3
 if [[ ${1:0:1} = '-' ]]; then
   EXTRA_ARGS="$@"
@@ -32,6 +27,10 @@ fi
 
 # default behaviour is to launch squid
 if [[ -z ${1} ]]; then
+  if [[ ! -d ${SQUID_CACHE_DIR}/00 ]]; then
+    echo "Initializing cache..."
+    /usr/sbin/squid3 -N -f /etc/squid3/squid.conf -z
+  fi
   echo "Starting squid3..."
   exec /usr/sbin/squid3 -f /etc/squid3/squid.conf -NYCd 1 ${EXTRA_ARGS}
 else
