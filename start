@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
 
+# deprecated: backward compatibility
 if [ -f /etc/squid3/squid.user.conf ]; then
-  cp /etc/squid3/squid.user.conf /etc/squid3/squid.conf
+  rm -rf /etc/squid3/squid.conf
+  ln -sf /etc/squid3/squid.user.conf /etc/squid3/squid.conf
 fi
 
 # fix permissions on the log dir
