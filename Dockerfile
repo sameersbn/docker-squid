@@ -13,12 +13,10 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 80F70E11F0F0D5F
  && mv /etc/squid3/squid.conf /etc/squid3/squid.conf.dist \
  && rm -rf /var/lib/apt/lists/*
 
-ADD squid.conf /etc/squid3/squid.conf
-
-ADD entrypoint.sh /sbin/entrypoint.sh
+COPY squid.conf /etc/squid3/squid.conf
+COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod 755 /sbin/entrypoint.sh
 
 EXPOSE 3128
 VOLUME ["${SQUID_CACHE_DIR}"]
-
 CMD ["/sbin/entrypoint.sh"]
