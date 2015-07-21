@@ -8,12 +8,12 @@ if [ -f /etc/squid3/squid.user.conf ]; then
 fi
 
 # fix permissions on the log dir
-sudo -u proxy -H mkdir -p /var/log/squid3
+mkdir -p /var/log/squid3
 chmod -R 755 /var/log/squid3
 chown -R proxy:proxy /var/log/squid3
 
 # fix permissions on the cache dir
-sudo -u proxy -H mkdir -p /var/spool/squid3
+mkdir -p /var/spool/squid3
 chown -R proxy:proxy /var/spool/squid3
 
 # initialize the cache_dir
