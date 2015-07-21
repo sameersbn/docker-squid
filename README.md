@@ -73,6 +73,8 @@ docker run --name squid -d --restart=always \
 
 *Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
 
+> **Note**: Any arguments specified on the `docker run` command are passed on the `squid3` command.
+
 ## Persistence
 
 For the cache to preserve its state across container shutdown and startup you should mount a volume at `/var/spool/squid3`.
