@@ -86,16 +86,6 @@ Squid is a full featured caching proxy server and has hundreds of configuration 
 
 The proper way to configure squid to your liking is by editing the `squid.conf` file and volume mounting the updated configuration at the `/etc/squid3/squid.user.conf` path in the container by specifying the `-v /path/on/host/to/squid.conf:/etc/squid3/squid.user.conf` flag in the docker run command. You can use the `squid.conf` from the repository as a template to base your configurations.
 
-For basic installations I have added a couple of configuration options which should help serve simple usage scenarios.
-
-*Please refer the docker run command options for the `--env-file` flag where you can specify all required environment variables in a single file. This will save you from writing a potentially long docker run command. Alternately you can specify these configurations using the `-e` docker run flag*
-
-- **CACHE_MAX_SIZE**: Maximum amount of storage (MB) to use for the cache store. Defaults to `100` MB
-- **CACHE_MAX_OBJECT_SIZE**: Maximum size of an object (MB) in the cache. Defaults to `4` MB
-- **CACHE_MAX_MEM**: Maximum amount of system memory squid is allowed to use to cached objects in the RAM
-- **OVERALL_SPEED_KBPS**: The speed limit (Kbps) for the aggregate bucket. Defaults to `-1` (unlimited)
-- **INDIVIDUAL_SPEED_KBPS**: The speed limit (Kbps) for the individual bucket. Defaults to `-1` (unlimited)
-
 # Shell Access
 
 For debugging and maintenance purposes you may want access the containers shell. If you are using docker version `1.3.0` or higher you can access a running containers shell using `docker exec` command.
