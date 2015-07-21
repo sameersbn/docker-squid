@@ -6,7 +6,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 80F70E11F0F0D5F
  && apt-get update \
  && apt-get install -y squid3-ssl \
  && mv /etc/squid3/squid.conf /etc/squid3/squid.conf.dist \
- && rm -rf /var/lib/apt/lists/* # 20150712
+ && rm -rf /var/lib/apt/lists/*
 
 ADD squid.conf /etc/squid3/squid.conf
 
