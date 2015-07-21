@@ -1,136 +1,175 @@
-[![Circle CI](https://circleci.com/gh/sameersbn/docker-squid.svg?style=svg)](https://circleci.com/gh/sameersbn/docker-squid)
+[![Circle CI](https://circleci.com/gh/sameersbn/docker-squid.svg?style=shield)](https://circleci.com/gh/sameersbn/docker-squid)
 
 # Table of Contents
 
 - [Introduction](#introduction)
-- [Contributing](#contributing)
-- [Reporting Issues](#reporting-issues)
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Configuration](#configuration)
-- [Shell Access](#shell-access)
-- [Upgrading](#upgrading)
+  - [Contributing](#contributing)
+  - [Issues](#issues)
+- [Getting started](#getting-started)
+  - [Installation](#installation)
+  - [Quickstart](#quickstart)
+  - [Persistence](#persistence)
+  - [Configuration](#configuration)
+  - [Usage](#usage)
+  - [Logs](#logs)
+- [Maintenance](#maintenance)
+  - [Upgrading](#upgrading)
+  - [Shell Access](#shell-access)
 
 # Introduction
 
-Dockerfile to build a squid image.
+`Dockerfile` to create a [Docker](https://www.docker.com/) container image for [Squid proxy server](http://www.squid-cache.org/).
 
-# Contributing
+Squid is a caching proxy for the Web supporting HTTP, HTTPS, FTP, and more. It reduces bandwidth and improves response times by caching and reusing frequently-requested web pages. Squid has extensive access controls and makes a great server accelerator.
+
+## Contributing
 
 If you find this image useful here's how you can help:
 
-- Send a Pull Request with your awesome new features and bug fixes
-- Help new users with [Issues](https://github.com/sameersbn/docker-squid/issues) they may encounter
+- Send a pull request with your awesome features and bug fixes
+- Help users resolve their [issues](../../issues?q=is%3Aopen+is%3Aissue).
 - Support the development of this image with a [donation](http://www.damagehead.com/donate/)
 
-# Reporting Issues
+## Issues
 
-Docker is a relatively new project and is active being developed and tested by a thriving community of developers and testers and every release of docker features many enhancements and bugfixes.
+Before reporting your issue please try updating Docker to the latest version and check if it resolves the issue. Refer to the Docker [installation guide](https://docs.docker.com/installation) for instructions.
 
-Given the nature of the development and release cycle it is very important that you have the latest version of docker installed because any issue that you encounter might have already been fixed with a newer docker release.
+SELinux users should try disabling SELinux using the command `setenforce 0` to see if it resolves the issue.
 
-For ubuntu users I suggest [installing docker](https://docs.docker.com/installation/ubuntulinux/) using docker's own package repository since the version of docker packaged in the ubuntu repositories are a little dated.
+If the above recommendations do not help then [report your issue](../../issues/new) along with the following information:
 
-Here is the shortform of the installation of an updated version of docker on ubuntu.
+- Output of the `docker version` and `docker info` commands
+- The `docker run` command or `docker-compose.yml` used to start the image. Mask out the sensitive bits.
+- Please state if you are using [Boot2Docker](http://www.boot2docker.io), [VirtualBox](https://www.virtualbox.org), etc.
 
-```bash
-sudo apt-get purge docker.io
-curl -s https://get.docker.io/ubuntu/ | sudo sh
-sudo apt-get update
-sudo apt-get install lxc-docker
-```
+# Getting started
 
-Fedora and RHEL/CentOS users should try disabling selinux with `setenforce 0` and check if resolves the issue. If it does than there is not much that I can help you with. You can either stick with selinux disabled (not recommended by redhat) or switch to using ubuntu.
+## Installation
 
-If using the latest docker version and/or disabling selinux does not fix the issue then please file a issue request on the [issues](https://github.com/sameersbn/docker-squid/issues) page.
-
-In your issue report please make sure you provide the following information:
-
-- The host ditribution and release version.
-- Output of the `docker version` command
-- Output of the `docker info` command
-- The `docker run` command you used to run the image (mask out the sensitive bits).
-
-# Installation
-
-Pull the latest version of the image from the docker index. This is the recommended method of installation as it is easier to update image in the future. These builds are performed by the **Docker Trusted Build** service.
+This image is available as a [trusted build](//hub.docker.com/u/sameersbn/squid) on the [Docker hub](//hub.docker.com) and is the recommended method of installation.
 
 ```bash
 docker pull sameersbn/squid:latest
 ```
 
-Alternately you can build the image locally.
+Alternatively you can build the image yourself.
 
 ```bash
 git clone https://github.com/sameersbn/docker-squid.git
 cd docker-squid
-docker build --tag="$USER/squid" .
+docker build --tag $USER/squid .
 ```
 
-# Quick Start
+## Quickstart
 
-Run the image
+Start Squid using:
 
 ```bash
-docker run --name='squid' -it --rm -p 3128:3128 \
+docker run --name squid -d --restart=always \
+  --publish 3128:3128 \
+  --volume /srv/docker/squid/cache:/var/spool/squid3 \
   sameersbn/squid:latest
 ```
 
-You now have a squid proxy server listening on port 3128. Just configure your browser / applications to use the proxy and your good to go.
+*Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
 
-Additionally you can mount a volume at the `/var/spool/squid3` path to have a persistent cache, else the cache will be purged when the container is removed. For example, `-v /opt/squid/cache:/var/spool/squid3` will store the cache at the `/opt/squid/cache` path on the host.
+## Persistence
 
-# Configuration
+For the cache to preserve its state across container shutdown and startup you should mount a volume at `/var/spool/squid3`.
 
-Squid is a full featured caching proxy server and has hundreds of configuration parameters.
+> **Note**: *The [Quickstart](#quickstart) command already mounts a volume for persistence.*
 
-The proper way to configure squid to your liking is by editing the `squid.conf` file and volume mounting the updated configuration at the `/etc/squid3/squid.conf` path in the container by specifying the `-v /path/on/host/to/squid.conf:/etc/squid3/squid.conf` flag in the docker run command. You can use the `squid.conf` from the repository as a template to base your configurations.
+SELinux users should update the security context of the host mountpoint so that it plays nicely with Docker:
 
-# Shell Access
+```bash
+mkdir -p /srv/docker/squid
+chcon -Rt svirt_sandbox_file_t /srv/docker/squid
+```
 
-For debugging and maintenance purposes you may want access the containers shell. If you are using docker version `1.3.0` or higher you can access a running containers shell using `docker exec` command.
+## Configuration
+
+Squid is a full featured caching proxy server and a large number of configuration parameters. To configure Squid as per your requirements edit the default [squid.conf](squid.conf) and volume mount it at `/etc/squid3/squid.conf`.
+
+```bash
+docker run --name squid -d --restart=always \
+  --publish 3128:3128 \
+  --volume /path/to/squid.conf:/etc/squid3/squid.user.conf \
+  --volume /srv/docker/squid/cache:/var/spool/squid3 \
+  sameersbn/squid:latest
+```
+
+To reload the Squid configuration on a running instance you can send the `HUP` signal to the container.
+
+```bash
+docker kill -s HUP squid
+```
+
+## Usage
+
+Configure your web browser network/connection settings to use the proxy server which is available at `172.17.42.1:3128`
+
+If you are using Linux then you can also add the following lines to your `.bashrc` file allowing command line applications to use the proxy server for outgoing connections.
+
+```bash
+export ftp_proxy=http://172.17.42.1:3128
+export http_proxy=http://172.17.42.1:3128
+export https_proxy=http://172.17.42.1:3128
+```
+
+To use Squid in you Docker containers add the following line to your `Dockerfile`.
+
+```dockerfile
+ENV http_proxy=http://172.17.42.1:3128 \
+    https_proxy=http://172.17.42.1:3128 \
+    ftp_proxy=http://172.17.42.1:3128
+```
+
+## Logs
+
+To access the Squid logs, located at `/var/log/squid3/`, you can use `docker exec`. For example, if you want to tail the access logs:
+
+```bash
+docker exec -it squid tail -f /var/log/squid3/access.log
+```
+
+You can also mount a volume at `/var/log/squid3/` so that the logs are directly accessible on the host.
+
+# Maintenance
+
+## Upgrading
+
+To upgrade to newer releases:
+
+  1. Download the updated Docker image:
+
+  ```bash
+  docker pull sameersbn/squid:latest
+  ```
+
+  2. Stop the currently running image:
+
+  ```bash
+  docker stop squid
+  ```
+
+  3. Remove the stopped container
+
+  ```bash
+  docker rm -v squid
+  ```
+
+  4. Start the updated image
+
+  ```bash
+  docker run -name squid -d \
+    [OPTIONS] \
+    sameersbn/squid:latest
+  ```
+
+## Shell Access
+
+For debugging and maintenance purposes you may want access the containers shell. If you are using Docker version `1.3.0` or higher you can access a running containers shell by starting `bash` using `docker exec`:
 
 ```bash
 docker exec -it squid bash
-```
-
-If you are using an older version of docker, you can use the [nsenter](http://man7.org/linux/man-pages/man1/nsenter.1.html) linux tool (part of the util-linux package) to access the container shell.
-
-Some linux distros (e.g. ubuntu) use older versions of the util-linux which do not include the `nsenter` tool. To get around this @jpetazzo has created a nice docker image that allows you to install the `nsenter` utility and a helper script named `docker-enter` on these distros.
-
-To install `nsenter` execute the following command on your host,
-
-```bash
-docker run --rm -v /usr/local/bin:/target jpetazzo/nsenter
-```
-
-Now you can access the container shell using the command
-
-```bash
-sudo docker-enter squid
-```
-
-For more information refer https://github.com/jpetazzo/nsenter
-
-# Upgrading
-
-To upgrade the image simply follow this 3 step upgrade procedure.
-
-- **Step 1**: Update the docker image.
-
-```bash
-docker pull sameersbn/squid:latest
-```
-
-- **Step 2**: Stop and remove the currently running image
-
-```bash
-docker stop squid
-docker rm squid
-```
-
-- **Step 3**: Start the image
-
-```bash
-docker run --name=squid -d [OPTIONS] sameersbn/squid:latest
 ```
