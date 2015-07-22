@@ -8,6 +8,7 @@
 - [Getting started](#getting-started)
   - [Installation](#installation)
   - [Quickstart](#quickstart)
+  - [Command-line arguments](#command-line-arguments)
   - [Persistence](#persistence)
   - [Configuration](#configuration)
   - [Usage](#usage)
@@ -73,7 +74,16 @@ docker run --name squid -d --restart=always \
 
 *Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
 
-> Any arguments specified on the `docker run` command are passed on the `redis-server` command.
+## Command-line arguments
+
+You can customize the launch command of the Squid server by specifying arguments to `squid3` on the `docker run` command. For example the following command prints the help menu of `squid3` command:
+
+```bash
+docker run --name squid -it --rm \
+  --publish 3128:3128 \
+  --volume /srv/docker/squid/cache:/var/spool/squid3 \
+  sameersbn/squid:latest -h
+```
 
 ## Persistence
 
