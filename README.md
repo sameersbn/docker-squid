@@ -105,7 +105,7 @@ Squid is a full featured caching proxy server and a large number of configuratio
 ```bash
 docker run --name squid -d --restart=always \
   --publish 3128:3128 \
-  --volume /path/to/squid.conf:/etc/squid3/squid.user.conf \
+  --volume /path/to/squid.conf:/etc/squid3/squid.conf \
   --volume /srv/docker/squid/cache:/var/spool/squid3 \
   sameersbn/squid:latest
 ```
