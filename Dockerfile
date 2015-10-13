@@ -1,4 +1,4 @@
-FROM quay.io/sameersbn/ubuntu:14.04.20151011
+FROM quay.io/sameersbn/ubuntu:14.04.20151013
 MAINTAINER sameer@damagehead.com
 
 ENV SQUID_VERSION=3.3.8 \
