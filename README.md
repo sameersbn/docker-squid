@@ -1,6 +1,6 @@
 [![Circle CI](https://circleci.com/gh/sameersbn/docker-squid.svg?style=shield)](https://circleci.com/gh/sameersbn/docker-squid) [![Docker Repository on Quay.io](https://quay.io/repository/sameersbn/squid/status "Docker Repository on Quay.io")](https://quay.io/repository/sameersbn/squid)
 
-# quay.io/sameersbn/squid:3.3.8-1
+# quay.io/sameersbn/squid:3.3.8-2
 
 - [Introduction](#introduction)
   - [Contributing](#contributing)
@@ -50,7 +50,7 @@ If the above recommendations do not help then [report your issue](../../issues/n
 Automated builds of the image are available on [Quay.io](https://quay.io/repository/sameersbn/squid) and is the recommended method of installation.
 
 ```bash
-docker pull quay.io/sameersbn/squid:3.3.8-1
+docker pull quay.io/sameersbn/squid:3.3.8-2
 ```
 
 Alternatively you can build the image yourself.
@@ -69,7 +69,7 @@ Start Squid using:
 docker run --name squid -d --restart=always \
   --publish 3128:3128 \
   --volume /srv/docker/squid/cache:/var/spool/squid3 \
-  quay.io/sameersbn/squid:3.3.8-1
+  quay.io/sameersbn/squid:3.3.8-2
 ```
 
 *Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
@@ -82,7 +82,7 @@ You can customize the launch command of the Squid server by specifying arguments
 docker run --name squid -it --rm \
   --publish 3128:3128 \
   --volume /srv/docker/squid/cache:/var/spool/squid3 \
-  quay.io/sameersbn/squid:3.3.8-1 -h
+  quay.io/sameersbn/squid:3.3.8-2 -h
 ```
 
 ## Persistence
@@ -107,7 +107,7 @@ docker run --name squid -d --restart=always \
   --publish 3128:3128 \
   --volume /path/to/squid.conf:/etc/squid3/squid.conf \
   --volume /srv/docker/squid/cache:/var/spool/squid3 \
-  quay.io/sameersbn/squid:3.3.8-1
+  quay.io/sameersbn/squid:3.3.8-2
 ```
 
 To reload the Squid configuration on a running instance you can send the `HUP` signal to the container.
@@ -155,7 +155,7 @@ To upgrade to newer releases:
   1. Download the updated Docker image:
 
   ```bash
-  docker pull quay.io/sameersbn/squid:3.3.8-1
+  docker pull quay.io/sameersbn/squid:3.3.8-2
   ```
 
   2. Stop the currently running image:
@@ -175,7 +175,7 @@ To upgrade to newer releases:
   ```bash
   docker run -name squid -d \
     [OPTIONS] \
-    quay.io/sameersbn/squid:3.3.8-1
+    quay.io/sameersbn/squid:3.3.8-2
   ```
 
 ## Shell Access
