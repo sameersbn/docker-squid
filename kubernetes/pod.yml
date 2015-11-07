@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
     - name: squid
-      image: quay.io/sameersbn/squid:3.3.8-3
+      image: sameersbn/squid:3.3.8-3
       ports:
         - containerPort: 3128
           protocol: TCP
