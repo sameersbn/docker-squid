@@ -11,3 +11,9 @@ spec:
       ports:
         - containerPort: 3128
           protocol: TCP
+      volumeMounts:
+        - mountPath: /var/spool/squid3
+          name: data
+  volumes:
+    - name: data
+      emptyDir: {}
