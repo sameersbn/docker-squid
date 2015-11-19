@@ -58,9 +58,7 @@ docker pull sameersbn/squid:3.3.8-4
 Alternatively you can build the image yourself.
 
 ```bash
-git clone https://github.com/sameersbn/docker-squid.git
-cd docker-squid
-docker build --tag $USER/squid .
+docker build -t sameersbn/squid github.com/sameersbn/docker-squid
 ```
 
 ## Quickstart
