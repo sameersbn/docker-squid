@@ -1,5 +1,5 @@
 Squid:
-  image: sameersbn/squid:3.3.8-8
+  image: sameersbn/squid:3.3.8-9
   ports:
     - "3128:3128"
   volumes:
