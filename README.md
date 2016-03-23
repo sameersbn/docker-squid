@@ -128,7 +128,7 @@ export http_proxy=http://172.17.42.1:3128
 export https_proxy=http://172.17.42.1:3128
 ```
 
-To use Squid in you Docker containers add the following line to your `Dockerfile`.
+To use Squid in your Docker containers add the following line to your `Dockerfile`.
 
 ```dockerfile
 ENV http_proxy=http://172.17.42.1:3128 \
