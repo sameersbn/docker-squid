@@ -12,7 +12,7 @@ spec:
         - containerPort: 3128
           protocol: TCP
       volumeMounts:
-        - mountPath: /var/spool/squid3
+        - mountPath: /var/spool/squid
           name: data
   volumes:
     - name: data
