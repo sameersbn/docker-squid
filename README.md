@@ -68,7 +68,7 @@ Start Squid using:
 ```bash
 docker run --name squid -d --restart=always \
   --publish 3128:3128 \
-  --volume /srv/docker/squid/cache:/var/spool/squid \
+  --volume /srv/docker/squid/cache:/var/spool/squid3 \
   sameersbn/squid:3.5.27
 ```
 
@@ -81,13 +81,13 @@ You can customize the launch command of the Squid server by specifying arguments
 ```bash
 docker run --name squid -it --rm \
   --publish 3128:3128 \
-  --volume /srv/docker/squid/cache:/var/spool/squid \
+  --volume /srv/docker/squid/cache:/var/spool/squid3 \
   sameersbn/squid:3.5.27 -h
 ```
 
 ## Persistence
 
-For the cache to preserve its state across container shutdown and startup you should mount a volume at `/var/spool/squid`.
+For the cache to preserve its state across container shutdown and startup you should mount a volume at `/var/spool/squid3`.
 
 > *The [Quickstart](#quickstart) command already mounts a volume for persistence.*
 
@@ -105,8 +105,8 @@ Squid is a full featured caching proxy server and a large number of configuratio
 ```bash
 docker run --name squid -d --restart=always \
   --publish 3128:3128 \
-  --volume /path/to/squid.conf:/etc/squid/squid.conf \
-  --volume /srv/docker/squid/cache:/var/spool/squid \
+  --volume /path/to/squid.conf:/etc/squid3/squid.conf \
+  --volume /srv/docker/squid/cache:/var/spool/squid3 \
   sameersbn/squid:3.5.27
 ```
 
@@ -138,13 +138,13 @@ ENV http_proxy=http://172.17.0.1:3128 \
 
 ## Logs
 
-To access the Squid logs, located at `/var/log/squid/`, you can use `docker exec`. For example, if you want to tail the access logs:
+To access the Squid logs, located at `/var/log/squid3/`, you can use `docker exec`. For example, if you want to tail the access logs:
 
 ```bash
-docker exec -it squid tail -f /var/log/squid/access.log
+docker exec -it squid tail -f /var/log/squid3/access.log
 ```
 
-You can also mount a volume at `/var/log/squid/` so that the logs are directly accessible on the host.
+You can also mount a volume at `/var/log/squid3/` so that the logs are directly accessible on the host.
 
 # Maintenance
 
