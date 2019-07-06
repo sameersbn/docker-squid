@@ -10,6 +10,9 @@ RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y squid=${SQUID_VERSION}* \
  && rm -rf /var/lib/apt/lists/*
 
+# Allow localnet to access proxy.
+RUN sed -i "s/^#\+\(.*[acl|allow] localnet\)/\1/" /etc/squid/squid.conf
+
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod 755 /sbin/entrypoint.sh
 
