@@ -10,6 +10,9 @@ RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y squid=${SQUID_VERSION}* \
  && rm -rf /var/lib/apt/lists/*
 
+# Workaround for https://github.com/moby/moby/issues/31243
+RUN usermod -a -G tty proxy
+
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod 755 /sbin/entrypoint.sh
 
