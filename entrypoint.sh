@@ -31,7 +31,7 @@ if [[ -z ${1} ]]; then
     $(which squid) -N -f /etc/squid/squid.conf -z
   fi
   echo "Starting squid..."
-  exec $(which squid) -f /etc/squid/squid.conf -NYCd 1 ${EXTRA_ARGS}
+  exec $(which squid) -f /etc/squid/squid.conf -NYC ${EXTRA_ARGS}
 else
   exec "$@"
 fi
