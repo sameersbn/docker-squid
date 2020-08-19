@@ -1,0 +1,18 @@
+#Example docker-compose.yaml file
+#docker-compose is a more robust and efficient way to run docker containers than "docker run"
+#Run "docker-compose up -d" in the same directory as the file to run it
+#Periodically run "docker-compose up -d to update it
+
+version: "3.5"
+
+services:
+  squid:
+    container_name: squid
+    image: sameersbn/squid:latest
+    ports:
+      - "192.168.0.69:3128:3128"
+    volumes:
+      - "./squid.conf:/etc/squid/squid.conf"
+      - "/srv/docker/squid/cache/:/var/spool/squid/"
+      - "./access.log:/var/log/squid/access.log"
+    restart: always
