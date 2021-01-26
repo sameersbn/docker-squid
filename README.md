@@ -1,4 +1,4 @@
-# stackhpc/squid:3.5.20
+# stackhpc/squid:4.4-8
 
 - [Introduction](#introduction)
   - [Contributing](#contributing)
@@ -53,7 +53,7 @@ If the above recommendations do not help then [report your issue](../../issues/n
 ## Installation
 
 ```bash
-docker pull stackhpc/squid:3.5.20-1
+docker pull stackhpc/squid:4.4-8
 ```
 
 Alternatively you can build the image yourself.
@@ -71,7 +71,7 @@ docker run --name squid -d --restart=always \
   --publish 3128:3128 \
   --volume /srv/docker/squid/log:/var/log/squid \
   --volume /srv/docker/squid/cache:/var/spool/squid \
-  stackhpc/squid:3.5.20-1
+  stackhpc/squid:4.4-8
 ```
 
 *Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
@@ -85,7 +85,7 @@ docker run --name squid -it --rm \
   --publish 3128:3128 \
   --volume /srv/docker/squid/log:/var/log/squid \
   --volume /srv/docker/squid/cache:/var/spool/squid \
-  stackhpc/squid:3.5.20-1 -h
+  stackhpc/squid:4.4-8 -h
 ```
 
 ## Persistence
@@ -110,7 +110,7 @@ docker run --name squid -d --restart=always \
   --publish 3128:3128 \
   --volume /path/to/squid.conf:/etc/squid/squid.conf \
   --volume /srv/docker/squid/cache:/var/spool/squid \
-  stackhpc/squid:3.5.20-1
+  stackhpc/squid:4.4-8
 ```
 
 To reload the Squid configuration on a running instance you can send the `HUP` signal to the container.
@@ -158,7 +158,7 @@ To upgrade to newer releases:
   1. Download the updated Docker image:
 
   ```bash
-  docker pull stackhpc/squid:3.5.20-1
+  docker pull stackhpc/squid:4.4-8
   ```
 
   2. Stop the currently running image:
@@ -178,7 +178,7 @@ To upgrade to newer releases:
   ```bash
   docker run -name squid -d \
     [OPTIONS] \
-    stackhpc/squid:3.5.20-1
+    stackhpc/squid:4.4-8
   ```
 
 ## Shell Access
