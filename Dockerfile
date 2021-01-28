@@ -1,12 +1,12 @@
-FROM centos:centos7
-MAINTAINER StackHPC
+FROM centos:centos8
+LABEL maintainer=StackHPC
 
-ENV SQUID_VERSION=3.5.20 \
+ENV SQUID_VERSION=4.4 \
     SQUID_CACHE_DIR=/var/spool/squid \
     SQUID_LOG_DIR=/var/log/squid \
     SQUID_USER=squid
 
-RUN yum install -y \
+RUN dnf install -y \
     which \
     squid-${SQUID_VERSION}
 
