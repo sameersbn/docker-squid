@@ -59,7 +59,7 @@ docker pull stackhpc/squid:4.4-8
 Alternatively you can build the image yourself.
 
 ```bash
-docker build -t stackhpc/squid github.com/stackhpc/docker-squid
+docker build -t stackhpc/squid:4.4-8 github.com/stackhpc/docker-squid
 ```
 
 ## Quickstart
