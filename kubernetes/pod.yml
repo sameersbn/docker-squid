@@ -14,6 +14,18 @@ spec:
       volumeMounts:
         - mountPath: /var/spool/squid
           name: data
+        # add config file to persist the required config 
+        - mountPath: /etc/squid/squid.conf
+          name: config
   volumes:
     - name: data
-      emptyDir: {}
+      hostPath:
+      # directory location on host
+        path: /srv/docker/squid/cache
+        type: Directory
+    - name: config
+      hostPath:
+      # file location on host
+        path: /srv/docker/squid/squid.conf
+        type: File
+
