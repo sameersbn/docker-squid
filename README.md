@@ -1,4 +1,4 @@
-# stackhpc/squid:4.4-8
+# stackhpc/squid
 
 - [Introduction](#introduction)
   - [Contributing](#contributing)
@@ -23,11 +23,7 @@ Squid is a caching proxy for the Web supporting HTTP, HTTPS, FTP, and more. It r
 
 Based on the Squid container by [sameersbn](https://github.com/sameersbn/docker-squid), with some changes:
 
-- Based on CentOS base image and packages
-- Uses a disk cache (4 GB) in `/var/spool/squid`
-- Configures for logging to files under `/var/log/squid`
-- Raises the RAM cache to 768 MB (default is 256 MB)
-- Raises the maximum object size to 16 MB (default is 512 KB)
+- Based on Alpine base image and packages
 
 ## Contributing
 
@@ -45,7 +41,7 @@ SELinux users should try disabling SELinux using the command `setenforce 0` to s
 If the above recommendations do not help then [report your issue](../../issues/new) along with the following information:
 
 - Output of the `docker version` and `docker info` commands
-- The `docker run` command or `docker-compose.yml` used to start the image. Mask out the sensitive bits.
+- The `docker run` command used to start the image. Mask out the sensitive bits.
 - Please state if you are using [Boot2Docker](http://www.boot2docker.io), [VirtualBox](https://www.virtualbox.org), etc.
 
 # Getting started
@@ -53,13 +49,13 @@ If the above recommendations do not help then [report your issue](../../issues/n
 ## Installation
 
 ```bash
-docker pull stackhpc/squid:4.4-8
+docker pull stackhpc/squid:latest
 ```
 
 Alternatively you can build the image yourself.
 
 ```bash
-docker build -t stackhpc/squid:4.4-8 github.com/stackhpc/docker-squid
+docker build -t stackhpc/squid github.com/stackhpc/docker-squid
 ```
 
 ## Quickstart
@@ -69,12 +65,12 @@ Start Squid using:
 ```bash
 docker run --name squid -d --restart=always \
   --publish 3128:3128 \
+  --volume /etc/hosts:/etc/hosts:ro \
+  --volume /etc/localtime:/etc/localtime:ro \
   --volume /srv/docker/squid/log:/var/log/squid \
   --volume /srv/docker/squid/cache:/var/spool/squid \
-  stackhpc/squid:4.4-8
+  stackhpc/squid:latest
 ```
-
-*Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
 
 ## Command-line arguments
 
@@ -85,7 +81,7 @@ docker run --name squid -it --rm \
   --publish 3128:3128 \
   --volume /srv/docker/squid/log:/var/log/squid \
   --volume /srv/docker/squid/cache:/var/spool/squid \
-  stackhpc/squid:4.4-8 -h
+  stackhpc/squid:latest squid -h
 ```
 
 ## Persistence
@@ -110,7 +106,7 @@ docker run --name squid -d --restart=always \
   --publish 3128:3128 \
   --volume /path/to/squid.conf:/etc/squid/squid.conf \
   --volume /srv/docker/squid/cache:/var/spool/squid \
-  stackhpc/squid:4.4-8
+  stackhpc/squid:latest
 ```
 
 To reload the Squid configuration on a running instance you can send the `HUP` signal to the container.
@@ -158,7 +154,7 @@ To upgrade to newer releases:
   1. Download the updated Docker image:
 
   ```bash
-  docker pull stackhpc/squid:4.4-8
+  docker pull stackhpc/squid:latest
   ```
 
   2. Stop the currently running image:
@@ -178,7 +174,7 @@ To upgrade to newer releases:
   ```bash
   docker run -name squid -d \
     [OPTIONS] \
-    stackhpc/squid:4.4-8
+    stackhpc/squid:latest
   ```
 
 ## Shell Access
@@ -186,5 +182,5 @@ To upgrade to newer releases:
 For debugging and maintenance purposes you may want access the containers shell. If you are using Docker version `1.3.0` or higher you can access a running containers shell by starting `bash` using `docker exec`:
 
 ```bash
-docker exec -it squid bash
+docker exec -it squid sh
 ```

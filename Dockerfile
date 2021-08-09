@@ -1,21 +1,16 @@
-FROM centos:centos8
+FROM alpine:3.14
 LABEL maintainer=StackHPC
 
-ENV SQUID_VERSION=4.4 \
-    SQUID_CACHE_DIR=/var/spool/squid \
-    SQUID_LOG_DIR=/var/log/squid \
-    SQUID_USER=squid
+COPY init /init
+RUN apk update && apk upgrade && \
+    apk add dumb-init && \
+    apk add ca-certificates && \
+    apk add --no-cache 'squid<5.1' && \
+    rm -rf /var/cache/apk/* /tmp/* && \
+    mkdir -p /defaults/squid && \
+    mv /etc/squid/squid.conf* /defaults/squid/ && \
+    chmod +x /init
 
-RUN dnf install -y \
-    which \
-    squid-${SQUID_VERSION}
 
-COPY squid.conf /etc/squid/squid.conf
-RUN chown root.squid /etc/squid/squid.conf
-RUN chmod 0640 /etc/squid/squid.conf
-
-COPY entrypoint.sh /sbin/entrypoint.sh
-RUN chmod 0755 /sbin/entrypoint.sh
-
-EXPOSE 3128/tcp
-ENTRYPOINT ["/sbin/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["/init"]
