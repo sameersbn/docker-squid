@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: squid-config
+  namespace: squid
+data:
+  squid.conf: "acl localnet src 10.0.0.0/8\t    # RFC1918 possible internal network\nacl
+    localnet src 172.16.0.0/12\t# RFC1918 possible internal network\nacl localnet
+    src 192.168.0.0/16\t# RFC1918 possible internal network\nacl localnet src fc00::/7
+    \      # RFC 4193 local private network range\nacl localnet src fe80::/10      #
+    RFC 4291 link-local (directly plugged) machines\n\nacl SSL_ports port 443\nacl
+    Safe_ports port 80\t\t# http\nacl Safe_ports port 21\t\t# ftp\nacl Safe_ports
+    port 443\t\t# https\nacl Safe_ports port 70\t\t# gopher\nacl Safe_ports port 210\t\t#
+    wais\nacl Safe_ports port 1025-65535\t# unregistered ports\nacl Safe_ports port
+    280\t\t# http-mgmt\nacl Safe_ports port 488\t\t# gss-http\nacl Safe_ports port
+    591\t\t# filemaker\nacl Safe_ports port 777\t\t# multiling http\nacl CONNECT method
+    CONNECT\n\n# Deny requests to certain unsafe ports\nhttp_access deny !Safe_ports\n\n#
+    Deny CONNECT to other than secure SSL ports\nhttp_access deny CONNECT !SSL_ports\n\n#
+    Only allow cachemgr access from localhost\nhttp_access allow localhost manager\nhttp_access
+    deny manager\n\n# We strongly recommend the following be uncommented to protect
+    innocent\n# web applications running on the proxy server who think the only\n#
+    one who can access services on \"localhost\" is a local user\nhttp_access deny
+    to_localhost\n\n# Example rule allowing access from your local networks.\n# Adapt
+    localnet in the ACL section to list your (internal) IP networks\n# from where
+    browsing should be allowed\nhttp_access allow localnet\nhttp_access allow localhost\n\n#
+    And finally deny all other access to this proxy\nhttp_access deny all\n\n# Squid
+    normally listens to port 3128\nhttp_port 3128\n\n# Uncomment and adjust the following
+    to add a disk cache directory.\ncache_dir ufs /var/spool/squid 100 16 256\n\n#
+    Leave coredumps in the first cache dir\ncoredump_dir /var/spool/squid\n\n\n# Add
+    any of your own refresh_pattern entries above these.\nrefresh_pattern ^ftp:\t\t1440\t20%\t10080\nrefresh_pattern
+    ^gopher:\t1440\t0%\t1440\nrefresh_pattern -i (/cgi-bin/|\\?) 0\t0%\t0\nrefresh_pattern
+    (Release|Packages(.gz)*)$   0    20%  2880\nrefresh_pattern .\t\t0   20% 4320\n\n#
+    Include additional config files from conf.d\ninclude /etc/squid/conf.d/*\n"
