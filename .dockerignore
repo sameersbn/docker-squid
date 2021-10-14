@@ -1,7 +1,4 @@
-.git
-circle.yml
-LICENSE
-VERSION
-README.md
-Changelog.md
-Makefile
+**
+!Dockerfile
+!entrypoint.sh
+!conf.d
