@@ -1,17 +1,23 @@
-FROM ubuntu:bionic-20190612
+FROM debian:bullseye-20210111-slim
 LABEL maintainer="sameer@damagehead.com"
 
-ENV SQUID_VERSION=3.5.27 \
+ENV SQUID_VERSION=4.13-10 \
     SQUID_CACHE_DIR=/var/spool/squid \
-    SQUID_LOG_DIR=/var/log/squid \
     SQUID_USER=proxy
 
 RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y squid=${SQUID_VERSION}* \
+ && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+   squid-openssl=${SQUID_VERSION}* \
+   ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 
-COPY entrypoint.sh /sbin/entrypoint.sh
-RUN chmod 755 /sbin/entrypoint.sh
+RUN sed '/^#http_access allow localnet/s/^#//' -i /etc/squid/squid.conf \
+  && mkdir -p /var/run/squid \
+  && chown -R ${SQUID_USER}:${SQUID_USER} /var/run/squid
+
+COPY conf.d/ /etc/squid/conf.d/
+COPY entrypoint.sh /usr/sbin/entrypoint.sh
 
 EXPOSE 3128/tcp
-ENTRYPOINT ["/sbin/entrypoint.sh"]
+USER ${SQUID_USER}
+ENTRYPOINT ["/usr/sbin/entrypoint.sh"]
