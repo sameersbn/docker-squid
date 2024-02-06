@@ -3,15 +3,15 @@ jobs:
   build:
     working_directory: /workdir
     docker:
-      - image: docker:18.03.0-ce-git
+      - image: docker:20.10.18-git
         environment:
-          IMAGE_NAME: "sameersbn/squid"
+          IMAGE_NAME: "noroch/squid"
 
     steps:
       - checkout
 
       - setup_remote_docker:
-          version: 18.03.1-ce
+          version: 20.10.18
 
       - run:
           name: Docker info
